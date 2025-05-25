@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yaff Fragrance - YF NOVA AROMATA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #FFF0F5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #FF69B4;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #FFF;
+        }
+
+        .cart-button {
+            background-color: #FFF;
+            color: #FF69B4;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            margin-right: 1rem;
+            border-radius: 9999px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .cart-button:hover {
+            transform: scale(1.05);
+        }
+
+        .cart-button:active {
+            transform: scale(0.95);
+        }
+
+        .offer-banner {
+            background-color: #FFB6C1;
+            color: #333;
+            padding: 0.5rem;
+            font-weight: bold;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .offer-text {
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translateX(-50%) translateY(-50%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 2rem;
+            border-radius: 10px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #FF69B4;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+
+        .cta-button {
+            background-color: #FF69B4;
+            color: #FFF;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-size: 1.25rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            background-color: #FF1493;
+        }
+
+        .cta-button:active {
+            transform: scale(0.95);
+        }
+
+        .products {
+            padding: 4rem 0;
+        }
+
+        .products h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #FF69B4;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .product-card {
+            background-color: #FFF;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 1rem;
+        }
+
+        .product-name {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .product-price {
+            color: #FF69B4;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            background-color: #FF69B4;
+            color: #FFF;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 9999px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            background-color: #FF1493;
+            transform: scale(1.05);
+        }
+
+        .add-to-cart:active {
+            transform: scale(0.95);
+        }
+
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .cart-content {
+            background-color: #FFF;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .cart-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #FF69B4;
+        }
+
+        .cart-items {
+            margin-bottom: 1rem;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #FFB6C1;
+        }
+
+        .cart-item-info h3 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .cart-item-info p {
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        .remove-item {
+            background: none;
+            border: none;
+            color: #FF1493;
+            cursor: pointer;
+            font-size: 1.25rem;
+            transition: transform 0.3s ease;
+        }
+
+        .remove-item:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-total {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #FF69B4;
+        }
+
+        .cart-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .cart-button {
+            padding: 0.75rem;
+            border: none;
+            border-radius: 9999px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .order-button {
+            background-color: #FF69B4;
+            color: #FFF;
+        }
+
+        .order-button:hover {
+            background-color: #FF1493;
+        }
+
+        .close-button {
+            background-color: #FFB6C1;
+            color: #333;
+        }
+
+        .close-button:hover {
+            background-color: #FFC0CB;
+        }
+
+        .cart-button:hover {
+            transform: scale(1.05);
+        }
+
+        .cart-button:active {
+            transform: scale(0.95);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .cta-button {
+                font-size: 1rem;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Glamour Perfume</div>
+            <button class="cart-button" id="cartButton"> Cart (0)</button>
+        </nav>
+    </header>
+
+    <div class="offer-banner">
+        <div class="offer-text"> ORDER NOW GUYSSS🥰🥰🥰🥰</div>
+    </div>
+
+    <section class="hero">
+        <video autoplay loop muted playsinline>
+            <source src="https://ik.imagekit.io/hbuesdzur/8447665-uhd_2160_4096_25fps.mp4?updatedAt=1748096699846" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-content">
+            <h1>Introducing The New Fragrance</h1>
+            <p>Explore our collection of high-quality perfume</p>
+            <button class="cta-button" id="ctaButton">View Products</button>
+        </div>
+    </section>
+
+    <section class="products container" id="productsSection">
+        <h2>Our Perfume Collection</h2>
+        <div class="product-grid" id="productGrid"></div>
+    </section>
+
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <h2 class="cart-title">Shopping Cart</h2>
+            <div id="cartItems" class="cart-items"></div>
+            <div id="cartTotal" class="cart-total"></div>
+            <div class="cart-buttons">
+                <button class="cart-button order-button" id="orderButton">Order via WhatsApp</button>
+                <button class="cart-button close-button" id="closeCartButton">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const products = [
+            { id: 1, name: "Amor Fleur", price: 2.2, image: "https://yaff28.wordpress.com/wp-content/uploads/2025/05/pink-dan-putih-modern-parfum-premium-kiriman-twitter-h614-4.png" },
+            { id: 2, name: "Golden Bloom", price: 2.2, image: "https://yaff28.wordpress.com/wp-content/uploads/2025/05/pink-dan-putih-modern-parfum-premium-kiriman-twitter-h614-5.png" },
+            { id: 3, name: "Sky Blossom", price: 2.2, image: "https://yaff28.wordpress.com/wp-content/uploads/2025/05/pink-dan-putih-modern-parfum-premium-kiriman-twitter-h614-6.png" },
+            { id: 4, name: "Pink Orchid Mist", price: 2.2, image: "https://yaff28.wordpress.com/wp-content/uploads/2025/05/pink-dan-putih-modern-parfum-premium-kiriman-twitter-h614-7.png" },
+
+        ];
+
+        let cart = [];
+
+        function renderProducts() {
+            const productGrid = document.getElementById('productGrid');
+            productGrid.innerHTML = products.map(product => `
+                <div class="product-card">
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-price">$${product.price.toFixed(2)}</p>
+                        <button class="add-to-cart" data-id="${product.id}">Add to Cart</button>
+                    </div>
+                </div>
+            `).join('');
+
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', addToCart);
+            });
+        }
+
+        function addToCart(event) {
+            const productId = parseInt(event.target.getAttribute('data-id'));
+            const product = products.find(p => p.id === productId);
+
+            const existingItem = cart.find(item => item.id === productId);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+
+            updateCartButton();
+            event.target.classList.add('added');
+            event.target.textContent = 'Added!';
+            setTimeout(() => {
+                event.target.classList.remove('added');
+                event.target.textContent = 'Add to Cart';
+            }, 1000);
+        }
+
+        function updateCartButton() {
+            const cartButton = document.getElementById('cartButton');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartButton.textContent = `???? Cart (${totalItems})`;
+        }
+
+        function renderCart() {
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p>Your cart is empty</p>';
+                cartTotal.textContent = 'Total: $0.00';
+                return;
+            }
+
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div class="cart-item-info">
+                        <h3>${item.name}</h3>
+                        <p>Quantity: ${item.quantity}</p>
+                    </div>
+                    <div>
+                        <p>$${(item.price * item.quantity).toFixed(2)}</p>
+                        <button class="remove-item" data-id="${item.id}">❌</button>
+                    </div>
+                </div>
+            `).join('');
+
+            const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            cartTotal.textContent = `Total: $${total.toFixed(2)}`;
+
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', removeFromCart);
+            });
+        }
+
+        function removeFromCart(event) {
+            const productId = parseInt(event.target.getAttribute('data-id'));
+            cart = cart.filter(item => item.id !== productId);
+            updateCartButton();
+            renderCart();
+        }
+
+        function sendOrderToWhatsApp() {
+            const phoneNumber = "1XXXXXXXXX"; // Country code followed by phone number without spaces or symbols
+            let message = "New order:\n\n";
+            cart.forEach(item => {
+                message += `${item.name} - Quantity: ${item.quantity} - Price: $${(item.price * item.quantity).toFixed(2)}\n`;
+            });
+            const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            message += `\nTotal: $${total.toFixed(2)}`;
+            const whatsappUrl = `https://api.whatsapp.com/send/?phone=$6285782218495&text=${encodeURIComponent(message)}&type=phone_number&app_absent=0`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+
+            const cartButton = document.getElementById('cartButton');
+            const cartModal = document.getElementById('cartModal');
+            const closeCartButton = document.getElementById('closeCartButton');
+            const orderButton = document.getElementById('orderButton');
+            const ctaButton = document.getElementById('ctaButton');
+
+            cartButton.addEventListener('click', () => {
+                cartModal.style.display = 'flex';
+                renderCart();
+            });
+
+            closeCartButton.addEventListener('click', () => {
+                cartModal.style.display = 'none';
+            });
+
+            orderButton.addEventListener('click', sendOrderToWhatsApp);
+
+            ctaButton.addEventListener('click', () => {
+                document.getElementById('productsSection').scrollIntoView({ behavior: 'smooth' });
+            });
+
+            window.addEventListener('click', (event) => {
+                if (event.target === cartModal) {
+                    cartModal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+            
